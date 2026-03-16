@@ -15,5 +15,23 @@ public class Papel {
     public Papel(){
 
     }
-    public Papel (Long id)
+    public Papel (Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPapel() {
+        return papel;
+    }
+
+    public void setPapel(String papel) {
+        this.papel = papel;
+    }
 }
