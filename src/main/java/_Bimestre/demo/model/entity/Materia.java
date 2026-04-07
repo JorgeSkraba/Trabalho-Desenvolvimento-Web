@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "materias")
 public class Materia {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,6 +14,14 @@ public class Materia {
 
     private String descricao;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "aluno_materia",
+            joinColumns = @JoinColumn(name="materia_id"),
+            inverseJoinColumns = @JoinColumn(name = "aluno_id")
+    )
+    private List<Aluno> alunos;
+
     @ElementCollection
     @CollectionTable(
         name = "materia_horario",
@@ -21,10 +29,11 @@ public class Materia {
     )
     private List<String> horarios;
 
-    public Materia(String nome, List<String> horarios, String descricao) {
+    public Materia(String nome, List<String> horarios, String descricao, List<Aluno> alunos) {
         this.nome = nome;
         this.horarios = horarios;
         this.descricao = descricao;
+        this.alunos = alunos;
     }
 
     public Materia(){
@@ -63,14 +72,11 @@ public class Materia {
         this.nome = nome;
     }
 
-    @Override
-    public String toString() {
-        String horarios = String.join(", ", this.horarios);
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
 
-        return "Materia{" +
-                "nome='" + nome + '\'' +
-                "horarios='" + horarios + '\'' +
-                ", descricao='" + descricao + '\'' +
-                '}';
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 }

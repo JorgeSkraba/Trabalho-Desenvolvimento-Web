@@ -36,11 +36,11 @@ public class MateriaServiceImp implements MateriaService {
 
     @Override
     public Boolean apagarMateria(Long id) throws Exception {
-        Materia materia = getMateriaPorId(id);
-        if(materia != null){
+        if (repository.existsById(id)){
+            repository.deleteById(id);
             return true;
         } else {
-            throw new IllegalArgumentException("Matéria não encontrada");
+            throw new IllegalArgumentException("Materia não encontrada");
         }
     }
 }
