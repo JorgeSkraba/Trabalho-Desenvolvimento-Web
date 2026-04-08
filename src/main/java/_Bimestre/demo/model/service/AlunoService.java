@@ -9,4 +9,5 @@ public interface AlunoService {
     List<Aluno> getAlunos();
     Aluno getAlunoPorId(Long id) throws Exception;
     Boolean apagarAluno(Long id) throws Exception;
+    Aluno buscarPorEmail(String email);
 }

@@ -15,7 +15,7 @@ public class MateriaController {
     @Autowired
     private MateriaService materiaService;
 
-    @PostMapping("/novo")
+    @PostMapping("/nova")
     public ResponseEntity<?> novaMateria(@RequestBody Materia materia) {
         try{
             Boolean criou = materiaService.novaMateria(materia);

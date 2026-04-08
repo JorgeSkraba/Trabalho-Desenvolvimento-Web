@@ -3,6 +3,7 @@ package _Bimestre.demo.model.service;
 import _Bimestre.demo.model.entity.Aluno;
 import _Bimestre.demo.model.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,13 @@ public class AlunoServiceImp  implements AlunoService{
     @Autowired
     private AlunoRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Boolean novoAluno (Aluno aluno) throws Exception {
         try {
+            aluno.setSenha(passwordEncoder.encode(aluno.getSenha()));
             repository.save(aluno);
             return true;
         }catch (Exception e) {
@@ -40,6 +45,15 @@ public class AlunoServiceImp  implements AlunoService{
             return true;
         } else {
             throw new IllegalArgumentException("Aluno não encontrado");
+        }
+    }
+
+    @Override
+    public Aluno buscarPorEmail(String email){
+        if(repository.findByEmail(email) != null){
+            return repository.findByEmail(email);
+        } else{
+            throw new IllegalArgumentException("Email não encontrado");
         }
     }
 }

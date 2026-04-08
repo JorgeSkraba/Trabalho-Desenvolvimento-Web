@@ -4,4 +4,5 @@ import _Bimestre.demo.model.entity.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
+    Aluno findByEmail(String email);
 }
